@@ -4,6 +4,7 @@ import HowItWork from './HowItWork';
 import Ourservices from './Ourservices';
 import Company from './Company';
 import Trackingsestem from './Trackingsestem';
+import MercentSection from './MercentSection';
 
 const Home = () => {
 
@@ -14,6 +15,7 @@ const Home = () => {
             <Ourservices></Ourservices>
             <Company></Company>
             <Trackingsestem></Trackingsestem>
+            <MercentSection></MercentSection>
         </div>
     );
 };

@@ -10,7 +10,7 @@ const Ourservices = () => {
                <p className='text-[#DADADA] py-6'>  Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to <br /> business shipments — we deliver on time, every time.
                 </p>
 
-                <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-5  px-5'>
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5  px-5'>
 
                      <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
