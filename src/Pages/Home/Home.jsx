@@ -3,6 +3,7 @@ import Banner from './Banner';
 import HowItWork from './HowItWork';
 import Ourservices from './Ourservices';
 import Company from './Company';
+import Trackingsestem from './Trackingsestem';
 
 const Home = () => {
 
@@ -12,6 +13,7 @@ const Home = () => {
             <HowItWork></HowItWork>
             <Ourservices></Ourservices>
             <Company></Company>
+            <Trackingsestem></Trackingsestem>
         </div>
     );
 };

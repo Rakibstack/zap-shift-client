@@ -13,18 +13,22 @@ const brands = [amazon,casio,monstar,randstand,star,startpeople,amazonvectore];
 const Company = () => {
 
     return (
-     <div className='py-14'>
+     <div className='py-14  w-11/12 mx-auto'>
         <h2 className='text-secondary text-2xl mb-10 font-bold text-center'>We've helped thousands of sales teams</h2>
-          <Marquee
+      
+       <div className='border-b border-secondary border-dashed'>
+                <Marquee
            pauseOnHover={true}
            speed={60}
+           
            >
         {
             brands.map((brand,index) =>  (
-                <img className='w-52 px-8 ' key={index} src={brand}  />
+                <img className='w-46 px-8 mb-12' key={index} src={brand}  />
             ))
         }
        </Marquee>
+       </div>
      </div>
     );
 };
