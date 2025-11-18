@@ -5,6 +5,7 @@ import Ourservices from './Ourservices';
 import Company from './Company';
 import Trackingsestem from './Trackingsestem';
 import MercentSection from './MercentSection';
+import Reviews from './Reviews';
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
             <Company></Company>
             <Trackingsestem></Trackingsestem>
             <MercentSection></MercentSection>
+            <Reviews></Reviews>
         </div>
     );
 };

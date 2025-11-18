@@ -12,37 +12,37 @@ const Ourservices = () => {
 
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5  px-5'>
 
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out '>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
                         <p className='text-gray-700 text-base leading-relaxed tracking-wide'>We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.</p>
                      </div>
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
                         <p className='text-gray-700 text-base leading-relaxed tracking-wide'>We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.</p>
                      </div>
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
                         <p className='text-gray-700 text-base leading-relaxed tracking-wide'>We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.</p>
                      </div>
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
                         <p className='text-gray-700 text-base leading-relaxed tracking-wide'>We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.</p>
                      </div>
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
                         <p className='text-gray-700 text-base leading-relaxed tracking-wide'>We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.</p>
                      </div>
-                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300'>
+                     <div className=' px-6 py-8 bg-white text-center rounded-2xl hover:bg-primary transition-all duration-300 hover:-translate-y-4 ease-out'>
                         <img className='mx-auto bg-[#EEEDFC] p-3 rounded-4xl' src={servicelogo} alt="" />
                         <h2 className='text-secondary font-bold py-2 text-[1.5rem]'>Express  & Standard Delivery</h2>
 
