@@ -7,6 +7,7 @@ import Login from "../Pages/Auth/Login";
 import Registation from "../Pages/Auth/Registation";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
+import SendPercel from "../Pages/send-percel/SendPercel";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,12 @@ const router = createBrowserRouter([
           loader: () => fetch('/warehouses.json'),
           element: <PrivateRoute>
             <Coverage></Coverage>
+          </PrivateRoute>
+        },
+        {
+          path: '/send-parcel',
+          element: <PrivateRoute>
+            <SendPercel></SendPercel>
           </PrivateRoute>
         }
     ]

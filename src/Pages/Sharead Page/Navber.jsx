@@ -19,8 +19,8 @@ const Navber = () => {
     <NavLink to='/coverage'>Coverage</NavLink>
     <NavLink>About Us</NavLink>
     <NavLink> Pricing</NavLink>
-    <NavLink> Blog</NavLink>
-    <NavLink> Contact</NavLink>
+    <NavLink> Track Order</NavLink>
+    <NavLink to='/send-parcel'> Send Parcel</NavLink>
   </>
   return (
     <div className=' container w-11/12 mx-auto py-6 '>

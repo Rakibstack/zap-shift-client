@@ -2,10 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
+import axios from 'axios';
 
 const Registation = () => {
 
-    const {createuser,LogInWithGoogle} = useAuth();
+    const {createuser,LogInWithGoogle,updateUserProfile} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -15,12 +16,35 @@ const Registation = () => {
     } = useForm();
 
     const HandleSubmit = (data) => {
+        const profileimg = data.photo[0]
 
         createuser(data.email,data.password)
-        .then(result => {
+        .then(() => {
             reset()
-            console.log(result.user); 
-             navigate(location.state ? location.state : '/')         
+
+            const formData = new FormData();
+            formData.append('image',profileimg);
+
+            const image_API_URL = `https://api.imgbb.com/1/upload?&key=${import.meta.env.VITE_image_host_key}`
+
+            axios.post(image_API_URL,formData)
+            .then(res => {
+
+                 const updateProfile = {
+                displayName : data.name,
+                photoURL : res.data.data.url
+            }          
+            updateUserProfile(updateProfile)
+            .then(
+                
+            )
+            .catch(error => console.log(error)
+
+            )
+            })
+
+             navigate(location.state ? location.state : '/')  
+
         }).catch(error => {
             console.log(error);
             
@@ -46,11 +70,15 @@ const Registation = () => {
 
                             {/* name field */}
                             <label className="label text-[#000000]">Name</label>
-                            <input type="text" {...register('name', { required: true })} className="input w-full" placeholder="Type Your Name" />
+                            <input type="text" {...register('name', { required: true })} className="input  focus:outline-none focus:ring-2 focus:ring-primary w-full" placeholder="Type Your Name" />
+
+                            {/* Photo field */}
+                            <label className="Photo text-[#000000]">Photo</label>
+                            <input type="file" {...register('photo', { required: true })} className="file-input  focus:outline-none focus:ring-2 focus:ring-primary w-full" placeholder=" Your Photo" />
 
                             {/* email field */}
                             <label className="label text-[#000000]">Email</label>
-                            <input type="email" {...register('email', { required: true })} className="input w-full" placeholder="Email" />
+                            <input type="email" {...register('email', { required: true })} className="input focus:outline-none focus:ring-2 focus:ring-primary w-full" placeholder="Email" />
                             {errors.email?.type === 'required' && <p className='text-red-500'>Email Is Requred.</p>}
 
                             {/* password field */}
@@ -59,7 +87,7 @@ const Registation = () => {
                                 required: true,
                                 minLength: 6,
                                 pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+\-={}[\]:;"'<>,.?/\\|~`]).{6,}$/
-                            })} className="input w-full" placeholder="Password" />
+                            })} className="input focus:outline-none focus:ring-2 focus:ring-primary w-full" placeholder="Password" />
                             {
                                 errors.password?.type === 'required' && <p className='text-red-500'>Password is Requred</p>
                             }

@@ -13,9 +13,8 @@ const Login = () => {
 
     const HandleLogin = (data) => {
         loginuser(data.email, data.password)
-        .then(result => {
+        .then(() => {
             reset()
-            console.log(result.user)
              navigate(location.state ? location.state : '/')
         }).catch(error => {
             console.log(error); 
@@ -41,14 +40,14 @@ const Login = () => {
                     <fieldset className="fieldset mt-6">
                         {/* email field */}
                         <label className="label">Email</label>
-                        <input type="email" {...register('email',{required: true})} className="input" placeholder="Email" />
+                        <input type="email" {...register('email',{required: true})} className="input focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Email" />
                         {
                             errors.email?.type === "required" && <p className='text-red-500'>Email is Requred</p>
                         }
 
                         {/* password field */}
                         <label className="label">Password</label>
-                        <input type="password" {...register('password',{required: true})} className="input" placeholder="Password" />
+                        <input type="password" {...register('password',{required: true})} className="input focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Password" />
                         {
                             errors.password?.type === 'required' && <p className='text-red-500'>Pasword Is Requred</p>
                         }

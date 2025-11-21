@@ -27,7 +27,7 @@ const Coverage = () => {
                 <div>
                     <h2 className='text-[#03373D] font-extrabold text-[3.2rem] mb-3'>We are available in 64 districts</h2>
                    <form onSubmit={HandleSubmit}>
-                     <label className="input  focus-within:border-primary  relative w-120 rounded-4xl">
+                     <label className="input  relative w-120 rounded-4xl">
                         <svg className="h-[1em]   opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g
                                 strokeLinejoin="round"
@@ -40,7 +40,7 @@ const Coverage = () => {
                                 <path d="m21 21-4.3-4.3"></path>
                             </g>
                         </svg>
-                        <input type="search" name='location' className="grow focus:outline-none focus:ring-0 " placeholder="Search" />
+                        <input type="search" name='location' className="grow  " placeholder="Search" />
                         <button className='px-6 py-2.5 absolute -right-0   rounded-3xl font-medium bg-primary'>Search</button>
 
                     </label>

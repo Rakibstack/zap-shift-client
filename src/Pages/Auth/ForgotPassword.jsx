@@ -36,7 +36,7 @@ const ForgotPassword = () => {
                     <fieldset className="fieldset mt-6">
                         {/* email field */}
                         <label className="label">Email</label>
-                        <input type="email" {...register('email', { required: true })} className="input" placeholder="Email" />
+                        <input type="email" {...register('email', { required: true })} className="input focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Email" />
                         {
                             errors.email?.type === "required" && <p className='text-red-500'>Email is Requred</p>
                         }
