@@ -35,8 +35,7 @@ const Registation = () => {
                 photoURL : res.data.data.url
             }          
             updateUserProfile(updateProfile)
-            .then(
-                
+            .then(                
             )
             .catch(error => console.log(error)
 

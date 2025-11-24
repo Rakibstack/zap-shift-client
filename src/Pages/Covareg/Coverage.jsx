@@ -23,6 +23,7 @@ const Coverage = () => {
 
     return (
         <div className='py-16 mx-auto w-10/12'>
+            <title>Zap-Shift Coverage</title>
             <div className='p-6 bg-white rounded-2xl'>
                 <div>
                     <h2 className='text-[#03373D] font-extrabold text-[3.2rem] mb-3'>We are available in 64 districts</h2>

@@ -8,6 +8,9 @@ import Registation from "../Pages/Auth/Registation";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import SendPercel from "../Pages/send-percel/SendPercel";
+import Dashboard from "../Layout/Dashboard";
+import MyParcel from "../Pages/Dashboard/MyParcel";
+
 
 const router = createBrowserRouter([
   {
@@ -22,12 +25,12 @@ const router = createBrowserRouter([
         {
           path: '/coverage',
           loader: () => fetch('/warehouses.json'),
-          element: <PrivateRoute>
-            <Coverage></Coverage>
-          </PrivateRoute>
+          element:
+            <Coverage></Coverage>       
         },
         {
           path: '/send-parcel',
+           loader: () => fetch('/warehouses.json'),
           element: <PrivateRoute>
             <SendPercel></SendPercel>
           </PrivateRoute>
@@ -52,6 +55,19 @@ const router = createBrowserRouter([
         element: <ForgotPassword></ForgotPassword>
       }
     ]
+  },
+  {
+    path: 'dashboard',
+    element:<PrivateRoute>
+      <Dashboard></Dashboard>
+    </PrivateRoute>,
+    children : [
+      {
+        path: 'myParcels',
+        Component: MyParcel
+      }
+    ]
+
   }
 ]);
 

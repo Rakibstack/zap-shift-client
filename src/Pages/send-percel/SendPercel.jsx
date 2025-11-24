@@ -1,15 +1,86 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
+import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from '../../Hooks/useAuth';
 
 const SendPercel = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, control,
+        //  formState: { errors }
+         } = useForm();
+    const AllDistricts = useLoaderData();
+    const DuplicateRegion = AllDistricts.map(c => c.region)
+    const Regions = [... new Set(DuplicateRegion)]
+    const axiossecure = useAxiosSecure()
+    const {user} = useAuth()
+
+    const SenderRegion = useWatch({ control, name: 'SenderRegion' });
+    const ReceiverRegion = useWatch({ control, name: 'ReceiverRegion' });
+
+    const districtByRegions = (Region) => {
+
+        const RegionDistrict = AllDistricts.filter(c => c.region === Region)
+        const District = RegionDistrict.map(d => d.district)
+        return District
+    }
 
     const HandleSenderPercel = (data) => {
+        console.log(data);
+        const isDocument = data.parcelType === 'document'
+        const isSameDistrict = data.SenderDistrict === data.ReceiverDistrict;
+        const parcelWeight = parseFloat(data.ParcelWeight)
+
+        let cost = 0;
+
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        } else {
+            if (parcelWeight < 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraWeight = parcelWeight - 3;
+                const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+                cost = minCharge + extraCharge
+            }
+        }
+         data.cost = cost ;
+
+        Swal.fire({
+            title: "Agree With the cost?",
+            text:  `You Have To Pay ${cost} Taka!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes I Agree"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+            axiossecure.post('/parcels',data)
+            .then(res => {
+                console.log(res.data)
+                if(res.data.insertedId){
+                     Swal.fire({
+                    title: "Confirm",
+                    text: "Your Booking is Confirm.",
+                    icon: "success"
+                });   
+                  }
+                
+            })
+               
+            }
+        });
 
     }
 
     return (
+
         <div className='w-11/12 mx-auto py-8'>
+            <title>Zap-Shift Send A Parcel</title>
             <div className='px-14 py-10 bg-white rounded-xl'>
 
                 <h2 className="text-5xl font-bold text-[#03373D]">Send A Parcel</h2>
@@ -18,7 +89,7 @@ const SendPercel = () => {
                 <form onSubmit={handleSubmit(HandleSenderPercel)}>
 
                     <div className='mt-6'>
-                        <label className="label mr-5">
+                        <label className="label mr-6">
                             <input type="radio" {...register('parcelType')} value='document' className="radio radio-primary" defaultChecked />
                             Document</label>
 
@@ -49,57 +120,97 @@ const SendPercel = () => {
                             <h2 className='text-[#03373D] font-bold text-[1.1rem] mb-5'>Sender Details</h2>
 
                             <label className="label mb-1 text-[#000000]">Sender Name</label>
-                            <input type="text" {...register('SenderName')} className="input mb-3 w-full" placeholder="Sender Name" />
+                            <input type="text" {...register('SenderName')}
+                            defaultValue={user.displayName}
+                             className="input mb-3 w-full" placeholder="Sender Name" />
+
+                            <label className="label mb-1 text-[#000000]">Sender Email</label>
+                             
+                            <input type="email" {...register('SenderEmail')}
+                            defaultValue={user.email}
+                            className="input mb-3 w-full" placeholder="Sender Email" />
 
                             <label className="label mb-1 text-[#000000]">Address</label>
-                            <input type="text" {...register('Address')} className="input mb-3 w-full" placeholder="Address" />
+                            <input type="text" {...register('SenderAddress')} className="input mb-3 w-full" placeholder="Address" />
 
                             <label className="label mb-1 text-[#000000]">Sender Phone No</label>
-                            <input type="text" {...register('PhonNumber')} className="input mb-3  w-full" placeholder="Sender Phone No" />
+                            <input type="number" {...register('SenderPhonNumber')} className="input mb-3  w-full" placeholder="Sender Phone No" />
 
-                            <p className='mb-1 text-[#000000]'>Your District</p>
-                            <select defaultValue="select Your District" className="select w-full mb-3">
-                                <option disabled={true}>Dhaka</option>
-                                <option>select Your District</option>
-                                <option>Rangpur</option>
-                                <option>Khulna</option>
-                                <option>Bogura</option>
+                            {/* sender Regions */}
+                            <p className='mb-1 text-[#000000]'>Sender Regions</p>
+                            <select {...register("SenderRegion")} defaultValue="select Your Regions" className="select w-full mb-3">
+
+                                <option disabled={true}>Select Your Regions</option>
+
+                                {
+                                    Regions.map((r, i) => <option value={r} key={i}>{r}</option>)
+                                }
+                            </select>
+
+                            {/* Sender District */}
+                            <p className='mb-1 text-[#000000]'>Sender District</p>
+                            <select {...register('SenderDistrict')} defaultValue="select Your District" className="select w-full mb-3">
+                                <option disabled={true}>select Your District</option>
+                                {
+                                    districtByRegions(SenderRegion).map((r, i) =>
+
+                                        <option value={r} key={i}>{r}</option>)
+                                }
+
+
                             </select>
 
                             <label className="label mb-1 text-[#000000]">Pickup Instruction</label>
-                            <input type='text' {...register('Pickup-Instruction')} className="input textarea mb-3  w-full" placeholder="Pickup Instruction" />
+                            <input type='text' {...register('PickupInstruction')} className="input textarea mb-3  w-full" placeholder="Pickup Instruction" />
 
 
                         </div>
+
                         <div>
                             {/* Receiver Details */}
-                             <h2 className='text-[#03373D] font-bold text-[1.1rem] mb-5'>Receiver Details</h2>
+                            <h2 className='text-[#03373D] font-bold text-[1.1rem] mb-5'>Receiver Details</h2>
 
                             <label className="label mb-1 text-[#000000]">Receiver Name</label>
                             <input type="text" {...register('ReceiverName')} className="input mb-3 w-full" placeholder="Receiver Name" />
 
+                            <label className="label mb-1 text-[#000000]">Receiver Email</label>
+                            <input type="email" {...register('ReceiverEmail')} className="input mb-3 w-full" placeholder="Receiver Email" />
+
                             <label className="label mb-1 text-[#000000]">Receiver Address</label>
-                            <input type="text" {...register('Receiver-Address')} className="input mb-3 w-full" placeholder="Receiver Address" />
+                            <input type="text" {...register('ReceiverAddress')} className="input mb-3 w-full" placeholder="Receiver Address" />
 
                             <label className="label mb-1 text-[#000000]">Receiver Phone No</label>
-                            <input type="text" {...register('Receiver-PhonNumber')} className="input mb-3  w-full" placeholder="Receiver Phone No" />
+                            <input type="number" {...register('ReceiverPhonNumber')} className="input mb-3  w-full" placeholder="Receiver Phone No" />
 
+                            {/* Receiver Regions */}
+                            <p className='mb-1 text-[#000000]'>Receiver Regions</p>
+                            <select {...register("ReceiverRegion")} defaultValue="select Your Regions" className="select w-full mb-3">
+
+                                <option disabled={true}>Select Your Regions</option>
+
+                                {
+                                    Regions.map((r, i) => <option value={r} key={i}>{r}</option>)
+                                }
+                            </select>
+
+                            {/* Receiver District */}
                             <p className='mb-1 text-[#000000]'>Receiver District</p>
-                            <select defaultValue="select Your District" className="select w-full mb-3">
-                                <option disabled={true}>Dhaka</option>
-                                <option>select Your District</option>
-                                <option>Rangpur</option>
-                                <option>Khulna</option>
-                                <option>Bogura</option>
+                            <select {...register("ReceiverDistrict")} defaultValue="select Your District" className="select w-full mb-3">
+
+                                <option disabled={true}>Select Your District</option>
+
+                                {
+                                    districtByRegions(ReceiverRegion).map((r, i) => <option value={r} key={i}>{r}</option>)
+                                }
                             </select>
 
                             <label className="label mb-1 text-[#000000]">Delivery  Instruction</label>
-                            <input type='text' {...register('Delivery-Instruction')} className="input textarea mb-3  w-full" placeholder="Delivery Instruction" />
+                            <input type='text' {...register('DeliveryInstruction')} className="input textarea mb-3  w-full" placeholder="Delivery Instruction" />
                         </div>
 
                     </div>
                     <p className='mt-8 mb-8'>* PickUp Time 4pm-7pm Approx.</p>
-                    <input type="submit" className='px-12 font-medium py-2 bg-primary rounded-lg' value="Proceed to Confirm Booking"  />
+                    <input type="submit" className='px-12 font-medium py-2 bg-primary rounded-lg' value="Proceed to Confirm Booking" />
                 </form>
             </div>
 

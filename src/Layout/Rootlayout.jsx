@@ -6,7 +6,7 @@ import Navber from '../Pages/Sharead Page/Navber';
 const Rootlayout = () => {
     return (
         <div className='bg-base-200'>
-           
+           <title>Zap-Shift Home Page</title>
             <Navber></Navber>
             <Outlet>
 

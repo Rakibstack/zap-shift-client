@@ -3,10 +3,15 @@ import { Link, NavLink } from 'react-router';
 import Logo from '../../Components/Logo';
 import useAuth from '../../Hooks/useAuth';
 import Arrow from '../../Components/Arrow';
+import Loading from '../../Components/Loading';
 
 const Navber = () => {
 
-  const { user ,logoutuser} = useAuth()
+  const { user ,logoutuser,loader} = useAuth()
+
+  if(loader){
+    return <Loading></Loading>
+  }
 
   const HandleLogOut = () => {
     logoutuser()
@@ -21,6 +26,11 @@ const Navber = () => {
     <NavLink> Pricing</NavLink>
     <NavLink> Track Order</NavLink>
     <NavLink to='/send-parcel'> Send Parcel</NavLink>
+    {
+      user && <>
+          <NavLink to='/dashboard/myParcels'> My Parcels</NavLink>
+      </>
+    }
   </>
   return (
     <div className=' container w-11/12 mx-auto py-6 '>
