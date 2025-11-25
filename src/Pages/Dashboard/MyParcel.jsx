@@ -3,6 +3,7 @@ import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyParcel = () => {
     const { user } = useAuth()
@@ -16,7 +17,6 @@ const MyParcel = () => {
         }
     })
     const HandleDelete = (id) => {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be Delete this Parcel! ", 
@@ -26,8 +26,7 @@ const MyParcel = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
-            if (result.isConfirmed) {
-               
+            if (result.isConfirmed) {             
                axiossecure.delete(`/parcels/${id}`)
                 .then(res => {
                 if (res.data.deletedCount) {
@@ -40,9 +39,7 @@ const MyParcel = () => {
                 }
             })   
           }
-        });
-
-      
+        });   
 
     }
 
@@ -62,8 +59,8 @@ const MyParcel = () => {
                             <th className="font-semibold">Parcel Name</th>
                             <th className="font-semibold">Customer</th>
                             <th className="font-semibold">Phone</th>
-                            <th className="font-semibold">Address</th>
-                            <th className="font-semibold">Status</th>
+                            <th className="font-semibold">Payment</th>
+                            <th className="font-semibold">Delivery Status</th>
                             <th className="font-semibold">Amount</th>
                             <th className="font-semibold">Date</th>
                             <th className="font-semibold text-center">Action</th>
@@ -78,7 +75,14 @@ const MyParcel = () => {
                                 <td>{p.ParcelName}</td>
                                 <td>{p.SenderName}</td>
                                 <td>{p.SenderPhonNumber}</td>
-                                <td>{p.SenderDistrict}</td>
+                                <td>
+                                    {p.paymentStatus === 'paid' ?
+                                    <span className='text-green-400 font-medium'>Paid</span>
+                                    : <Link to={`/dashboard/payment/${p._id}`}>
+                                    
+                                      <button className='px-4 font-semibold py-1 bg-primary text-black rounded-lg text-sm' >Pay</button>
+                                    </Link>}
+                                </td>
                                 <td>
                                     <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-600 font-semibold">
                                         {p.status}
@@ -86,14 +90,14 @@ const MyParcel = () => {
                                 </td>
                                 <td className="font-semibold">{p.cost}</td>
                                 <td>{p.createdAt}</td>
-                                <td className="text-center flex justify-center items-center p-3 ">
-                                    <button className="px-3 py-1 bg-primary text-black rounded-lg text-sm">
+                                <td className="text-center flex justify-center items-center p-5 ">
+                                    <button className="px-3 py-1 bg-primary font-semibold text-black rounded-lg text-sm">
                                         Edit
                                     </button>
-                                    <button className="px-3 py-1 mx-3 bg-[#94C6CB40] text-black rounded-lg text-sm">
+                                    <button className="px-3 py-1 mx-3 font-semibold bg-[#94C6CB40] text-black rounded-lg text-sm">
                                         View
                                     </button>
-                                    <button onClick={() => HandleDelete(p._id)} className="px-3 py-1  bg-[#E8333020] text-black rounded-lg text-sm">
+                                    <button onClick={() => HandleDelete(p._id)} className="px-3 py-1  font-semibold bg-[#E8333020] text-black rounded-lg text-sm">
                                         Delete
                                     </button>
                                 </td>

@@ -10,6 +10,10 @@ import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import SendPercel from "../Pages/send-percel/SendPercel";
 import Dashboard from "../Layout/Dashboard";
 import MyParcel from "../Pages/Dashboard/MyParcel";
+import Payment from "../Pages/Dashboard/Payment";
+import PaymentSuccessful from "../Pages/Dashboard/PaymentSuccessful";
+import PaymentCancelled from "../Pages/Dashboard/PaymentCancelled";
+import PageNotFound from "../Components/PageNotFound";
 
 
 const router = createBrowserRouter([
@@ -65,9 +69,25 @@ const router = createBrowserRouter([
       {
         path: 'myParcels',
         Component: MyParcel
+      },
+      {
+        path: 'payment/:paymentId',
+        Component: Payment,
+      },
+      {
+        path: 'payment-success',
+        Component: PaymentSuccessful,
+      },
+      {
+        path: 'payment-cancelled',
+        Component: PaymentCancelled,
       }
     ]
 
+  },
+  {
+    path: '*',
+    element: <PageNotFound></PageNotFound>
   }
 ]);
 
