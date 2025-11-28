@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, Outlet } from 'react-router';
 import Logo from '../Components/Logo';
 import { AiOutlineProduct } from 'react-icons/ai';
+import { GrTransaction } from "react-icons/gr";
+import { FaMotorcycle } from 'react-icons/fa';
 
 const Dashboard = () => {
 
@@ -42,6 +44,18 @@ const Dashboard = () => {
              <Link to='/dashboard/myParcels' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Parcels">
              <span><AiOutlineProduct size={18} /></span>
              <span className="is-drawer-close:hidden" >My Parcels</span>
+             </Link>
+        </li>
+        <li>
+             <Link to='/dashboard/paymentHistory' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
+             <span><GrTransaction size={18}  /></span>
+             <span className="is-drawer-close:hidden" >Payment History</span>
+             </Link>
+        </li>
+        <li>
+             <Link to='/dashboard/approverider' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+             <span><FaMotorcycle size={19} /></span>
+             <span className="is-drawer-close:hidden" >Approve Riders</span>
              </Link>
         </li>
 

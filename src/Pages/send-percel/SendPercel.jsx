@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuth from '../../Hooks/useAuth';
@@ -13,6 +13,7 @@ const SendPercel = () => {
     const DuplicateRegion = AllDistricts.map(c => c.region)
     const Regions = [... new Set(DuplicateRegion)]
     const axiossecure = useAxiosSecure()
+    const navigate = useNavigate()
     const {user} = useAuth()
 
     const SenderRegion = useWatch({ control, name: 'SenderRegion' });
@@ -55,17 +56,17 @@ const SendPercel = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes I Agree"
+            confirmButtonText: "confirm and continue payment!"
         }).then((result) => {
             if (result.isConfirmed) {
 
             axiossecure.post('/parcels',data)
             .then(res => {
-                console.log(res.data)
+                navigate('/dashboard/myParcels')
                 if(res.data.insertedId){
                      Swal.fire({
                     title: "Confirm",
-                    text: "Your Booking is Confirm.",
+                    text: "Parcel Has Created. Please Pay",
                     icon: "success"
                 });   
                   }
@@ -102,13 +103,13 @@ const SendPercel = () => {
                             <div>
                                 {/* Parcel Name field */}
                                 <label className="label mb-1 text-[#000000]">Parcel Name</label>
-                                <input type="text" {...register('ParcelName')} className="input  w-full" placeholder="Parcel Name" />
+                                <input type="text" {...register('ParcelName',{required:true})} className="input  w-full" placeholder="Parcel Name" />
                             </div>
 
                             <div>
                                 {/* Parcel Weight field */}
                                 <label className="label mb-1 text-[#000000]">Parcel Weight (kg)</label>
-                                <input type="text" {...register('ParcelWeight')} className="input   w-full" placeholder="Parcel Weight (kg)" />
+                                <input type="number" {...register('ParcelWeight',{required:true})} className="input   w-full" placeholder="Parcel Weight (kg)" />
                             </div>
                         </div>
 
@@ -120,21 +121,21 @@ const SendPercel = () => {
                             <h2 className='text-[#03373D] font-bold text-[1.1rem] mb-5'>Sender Details</h2>
 
                             <label className="label mb-1 text-[#000000]">Sender Name</label>
-                            <input type="text" {...register('SenderName')}
+                            <input type="text" {...register('SenderName',{required:true})}
                             defaultValue={user.displayName}
                              className="input mb-3 w-full" placeholder="Sender Name" />
 
                             <label className="label mb-1 text-[#000000]">Sender Email</label>
                              
-                            <input type="email" {...register('SenderEmail')}
+                            <input type="email" {...register('SenderEmail',{required:true})}
                             defaultValue={user.email}
                             className="input mb-3 w-full" placeholder="Sender Email" />
 
                             <label className="label mb-1 text-[#000000]">Address</label>
-                            <input type="text" {...register('SenderAddress')} className="input mb-3 w-full" placeholder="Address" />
+                            <input type="text" {...register('SenderAddress',{required:true})} className="input mb-3 w-full" placeholder="Address" />
 
                             <label className="label mb-1 text-[#000000]">Sender Phone No</label>
-                            <input type="number" {...register('SenderPhonNumber')} className="input mb-3  w-full" placeholder="Sender Phone No" />
+                            <input type="number" {...register('SenderPhonNumber',{required:true})} className="input mb-3  w-full" placeholder="Sender Phone No" />
 
                             {/* sender Regions */}
                             <p className='mb-1 text-[#000000]'>Sender Regions</p>
@@ -171,16 +172,16 @@ const SendPercel = () => {
                             <h2 className='text-[#03373D] font-bold text-[1.1rem] mb-5'>Receiver Details</h2>
 
                             <label className="label mb-1 text-[#000000]">Receiver Name</label>
-                            <input type="text" {...register('ReceiverName')} className="input mb-3 w-full" placeholder="Receiver Name" />
+                            <input type="text" {...register('ReceiverName',{required:true})} className="input mb-3 w-full" placeholder="Receiver Name" />
 
                             <label className="label mb-1 text-[#000000]">Receiver Email</label>
-                            <input type="email" {...register('ReceiverEmail')} className="input mb-3 w-full" placeholder="Receiver Email" />
+                            <input type="email" {...register('ReceiverEmail',{required:true})} className="input mb-3 w-full" placeholder="Receiver Email" />
 
                             <label className="label mb-1 text-[#000000]">Receiver Address</label>
-                            <input type="text" {...register('ReceiverAddress')} className="input mb-3 w-full" placeholder="Receiver Address" />
+                            <input type="text" {...register('ReceiverAddress',{required:true})} className="input mb-3 w-full" placeholder="Receiver Address" />
 
                             <label className="label mb-1 text-[#000000]">Receiver Phone No</label>
-                            <input type="number" {...register('ReceiverPhonNumber')} className="input mb-3  w-full" placeholder="Receiver Phone No" />
+                            <input type="number" {...register('ReceiverPhonNumber',{required:true})} className="input mb-3  w-full" placeholder="Receiver Phone No" />
 
                             {/* Receiver Regions */}
                             <p className='mb-1 text-[#000000]'>Receiver Regions</p>

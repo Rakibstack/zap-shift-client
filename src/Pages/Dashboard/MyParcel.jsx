@@ -46,6 +46,7 @@ const MyParcel = () => {
     return (
 
         <div className="p-10">
+            <title>Zap-Shift Dashboard</title>
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
                 📦 My-Parcel Overview
             </h2>
@@ -91,12 +92,12 @@ const MyParcel = () => {
                                 <td className="font-semibold">{p.cost}</td>
                                 <td>{p.createdAt}</td>
                                 <td className="text-center flex justify-center items-center p-5 ">
-                                    <button className="px-3 py-1 bg-primary font-semibold text-black rounded-lg text-sm">
-                                        Edit
-                                    </button>
+                                   
+                                    <Link to={`/dashboard/parcelDetails/${p._id}`}>
                                     <button className="px-3 py-1 mx-3 font-semibold bg-[#94C6CB40] text-black rounded-lg text-sm">
                                         View
                                     </button>
+                                    </Link>
                                     <button onClick={() => HandleDelete(p._id)} className="px-3 py-1  font-semibold bg-[#E8333020] text-black rounded-lg text-sm">
                                         Delete
                                     </button>

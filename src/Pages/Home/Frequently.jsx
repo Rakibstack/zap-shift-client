@@ -17,19 +17,19 @@ const Frequently = () => {
                     <div className="collapse collapse-arrow bg-[#E6F2F3] border border-base-300 mb-4">
                         <input type="radio" name="my-accordion-2" />
                         <div className="collapse-title font-semibold">Is it suitable for all ages and body types?</div>
-                        <div className="collapse-content text-sm">Click on "Forgot Password" on the login page and follow the instructions sent to your email.</div>
+                        <div className="collapse-content text-sm">A posture corrector works by providing support and gentle alignment to your shoulders, back, and spine, encouraging you to maintain proper posture throughout the day. </div>
                     </div>
 
                     <div className="collapse collapse-arrow bg-[#E6F2F3] border border-base-300 mb-4">
                         <input type="radio" name="my-accordion-2" />
                         <div className="collapse-title font-semibold">Does it really help with back pain and posture improvement?</div>
-                        <div className="collapse-content text-sm">Go to "My Account" settings and select "Edit Profile" to make changes.</div>
+                        <div className="collapse-content text-sm">A posture corrector works by providing support and gentle alignment to your shoulders, back, and spine, encouraging you to maintain proper posture throughout the day. </div>
                     </div>
 
                     <div className="collapse collapse-arrow bg-[#E6F2F3] border border-base-300">
                         <input type="radio" name="my-accordion-2" />
                         <div className="collapse-title font-semibold">Does it have smart features like vibration alerts?</div>
-                        <div className="collapse-content text-sm">Go to "My Account" settings and select "Edit Profile" to make changes.</div>
+                        <div className="collapse-content text-sm">A posture corrector works by providing support and gentle alignment to your shoulders, back, and spine, encouraging you to maintain proper posture throughout the day. </div>
                     </div>
                     <div>
                      <button className='mt-6 px-4 py-2 bg-primary rounded-xl text-black font-bold'>See More FAQ’s</button>

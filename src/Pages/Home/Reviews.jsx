@@ -25,13 +25,24 @@ const Reviews = () => {
                     <Swiper
                         effect={'coverflow'}
                         autoplay={{
-                            delay:2500,
+                            delay: 2500,
                             disableOnInteraction: false,
                         }}
                         loop={true}
                         grabCursor={true}
                         centeredSlides={true}
                         slidesPerView={3}
+                        breakpoints={{
+                            0: {
+                                slidesPerView: 1,
+                            },
+                            660: {
+                                slidesPerView: 2,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                            }
+                        }}
                         coverflowEffect={{
                             rotate: 30,
                             stretch: '50%',
@@ -41,18 +52,18 @@ const Reviews = () => {
                             slideShadows: true,
                         }}
                         pagination={true}
-                        modules={[EffectCoverflow,Autoplay, Pagination]}
-                       
+                        modules={[EffectCoverflow, Autoplay, Pagination]}
+
                     >
-                       {
-                        reviews.map(review => (
-                             <SwiperSlide key={review.id}>
-                          <ReviewCard review={review} ></ReviewCard>
-                        </SwiperSlide>
-                        ))
-                       }
-                    
-                      
+                        {
+                            reviews.map(review => (
+                                <SwiperSlide key={review.id}>
+                                    <ReviewCard review={review} ></ReviewCard>
+                                </SwiperSlide>
+                            ))
+                        }
+
+
                     </Swiper>
 
                 </div>

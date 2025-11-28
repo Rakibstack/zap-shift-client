@@ -22,13 +22,14 @@ const Navber = () => {
   const links = <>
     <NavLink>Services</NavLink>
     <NavLink to='/coverage'>Coverage</NavLink>
-    <NavLink>About Us</NavLink>
+    <NavLink to='/aboutus'>About Us</NavLink>
     <NavLink> Pricing</NavLink>
     <NavLink> Track Order</NavLink>
     <NavLink to='/send-parcel'> Send Parcel</NavLink>
     {
       user && <>
           <NavLink to='/dashboard/myParcels'> My Parcels</NavLink>
+        
       </>
     }
   </>
@@ -48,9 +49,9 @@ const Navber = () => {
               </nav>
             </ul>
           </div>
-          <Logo></Logo>
-
+     <Logo></Logo>
         </div>
+        
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <nav className='flex gap-4'>
@@ -63,7 +64,7 @@ const Navber = () => {
             user ? <Link onClick={HandleLogOut} className="btn">Log Out</Link> :
               <Link to='/login' className="btn">Sign In</Link>
           }
-          <a className="btn bg-[#CAEB66]">Be A Rider</a>
+          <Link to='/beARider' className="btn bg-[#CAEB66]">Be A Rider</Link>
         
         </div>
           <Arrow></Arrow>

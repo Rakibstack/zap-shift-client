@@ -6,6 +6,7 @@ import Company from './Company';
 import Trackingsestem from './Trackingsestem';
 import MercentSection from './MercentSection';
 import Reviews from './Reviews';
+import Frequently from './Frequently';
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
             <Trackingsestem></Trackingsestem>
             <MercentSection></MercentSection>
             <Reviews></Reviews>
+            <Frequently></Frequently>
         </div>
     );
 };
