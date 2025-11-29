@@ -19,6 +19,8 @@ import ParcelsDetails from "../Pages/Dashboard/ParcelsDetails";
 import AboutUs from "../Pages/Home/AboutUsSection";
 import BeARider from "../Pages/BeARider/BeARider";
 import ApproveRider from "../Pages/Dashboard/ApproveRider/ApproveRider";
+import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
+import AdminRoute from "./AdminRoute";
 
 
 const router = createBrowserRouter([
@@ -108,7 +110,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'approverider',
-        element: <ApproveRider></ApproveRider>
+        element: <AdminRoute>
+          <ApproveRider></ApproveRider>
+        </AdminRoute>
+      },
+      {
+        path: 'Users-Management',
+        element: <AdminRoute>
+          <UserManagement></UserManagement>
+        </AdminRoute>
       }
     ]
 

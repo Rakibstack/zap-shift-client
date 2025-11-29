@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { BanknoteX, Check, X } from "lucide-react";
+import { BanknoteX, Check, ListChevronsDownUp, X } from "lucide-react";
 import Swal from 'sweetalert2';
 
 const ApproveRider = () => {
 
     const axiossecure = useAxiosSecure();
+    const [details, setDetails] = useState([])
+    const [isOpen, setIsOpen] = useState(false)
+
+
 
     const { data: riders = [], refetch } = useQuery({
         queryKey: ['riders', 'pending'],
@@ -20,7 +24,7 @@ const ApproveRider = () => {
 
         const updateInfo = {
             status: status,
-            email:rider.email
+            email: rider.email
         }
         axiossecure.patch(`/riders/${rider._id}`, updateInfo)
             .then(res => {
@@ -42,29 +46,40 @@ const ApproveRider = () => {
     }
     const HandleDelete = (id) => {
 
-       Swal.fire({
-                  title: "Are you sure?",
-                  text: "You won't be Delete this Request! ", 
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Yes, delete it!"
-              }).then((result) => {
-                  if (result.isConfirmed) {             
-                     axiossecure.delete(`/riders/${id}`)
-                      .then(res => {
-                      if (res.data.deletedCount) {
-                           refetch()
-                          Swal.fire({
-                          title: "Deleted!",
-                          text: "Your Rider Request has been deleted.",
-                          icon: "success"
-                      }); 
-                      }
-                  })   
-                }
-              });   
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be Delete this Request! ",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiossecure.delete(`/riders/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your Rider Request has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+
+    }
+    const HandleView = (id) => {
+
+        axiossecure.get(`/ridersdetails/${id}`)
+            .then(res => {
+                // console.log(res.data);
+                setDetails(res.data)
+                setIsOpen(true)
+            })
+
 
     }
 
@@ -122,6 +137,40 @@ const ApproveRider = () => {
                                         className="p-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition"
                                     >
                                         <X size={18} />
+
+                                    </button>
+                                    {isOpen && (
+                                        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+                                            <div className="bg-white p-6 rounded-xl shadow-xl w-[400px]">
+
+                                                <h2 className="text-2xl font-bold mb-4">Rider Details</h2>
+
+                                                <p><span className="font-bold">Name:</span> {details.name}</p>
+                                                <p><span className="font-bold">Email:</span> {details.email}</p>
+                                                <p><span className="font-bold">Age:</span> {details.age}</p>
+                                                <p><span className="font-bold">Phone:</span> {details.contact}</p>
+                                                <p><span className="font-bold">Address:</span> {details.location}</p>
+                                                <p><span className="font-bold">Vehicle:</span> {details.biketype}</p>
+                                                <p><span className="font-bold">NID Number:</span> {details.nidNumber}</p>
+                                                <p><span className="font-bold">License:</span> {details.license}</p>
+
+                                                <button
+                                                    onClick={() => setIsOpen(false)}
+                                                    className="mt-6 w-full bg-red-500 text-white py-2 rounded-lg">
+                                                    Close
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <button
+                                        onClick={() => {
+                                            HandleView(rider._id)
+                                        }}
+                                        className="p-2 bg-[#94C6CB30] text-black rounded-xl  transition"
+                                    >
+                                        <ListChevronsDownUp size={18} />
 
                                     </button>
                                 </td>

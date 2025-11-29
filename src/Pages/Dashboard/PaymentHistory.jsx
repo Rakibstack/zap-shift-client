@@ -59,7 +59,6 @@ const PaymentHistory = () => {
                                 <td className="px-4 py-5 text-sm text-gray-700">{p.trackingId}</td>
                                 <td className="px-4 py-5 text-sm text-gray-700">{p.amount}(Paid)</td>
 
-
                              <Link to={`/dashboard/parcelDetails/${p.parcelId}`}>
                                 <td className="px-4 py-5 text-center">
                                     <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium">View</button>
