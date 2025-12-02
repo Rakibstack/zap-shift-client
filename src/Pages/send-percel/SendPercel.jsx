@@ -139,9 +139,9 @@ const SendPercel = () => {
 
                             {/* sender Regions */}
                             <p className='mb-1 text-[#000000]'>Sender Regions</p>
-                            <select {...register("SenderRegion")} defaultValue="select Your Regions" className="select w-full mb-3">
+                            <select {...register("SenderRegion")} defaultValue="" className="select w-full mb-3">
 
-                                <option disabled={true}>Select Your Regions</option>
+                                <option value='' disabled>Select Your Regions</option>
 
                                 {
                                     Regions.map((r, i) => <option value={r} key={i}>{r}</option>)
@@ -150,8 +150,8 @@ const SendPercel = () => {
 
                             {/* Sender District */}
                             <p className='mb-1 text-[#000000]'>Sender District</p>
-                            <select {...register('SenderDistrict')} defaultValue="select Your District" className="select w-full mb-3">
-                                <option disabled={true}>select Your District</option>
+                            <select {...register('SenderDistrict')} defaultValue="" className="select w-full mb-3">
+                                <option value='' disabled>select Your District</option>
                                 {
                                     districtByRegions(SenderRegion).map((r, i) =>
 
@@ -185,9 +185,9 @@ const SendPercel = () => {
 
                             {/* Receiver Regions */}
                             <p className='mb-1 text-[#000000]'>Receiver Regions</p>
-                            <select {...register("ReceiverRegion")} defaultValue="select Your Regions" className="select w-full mb-3">
+                            <select {...register("ReceiverRegion")} defaultValue="" className="select w-full mb-3">
 
-                                <option disabled={true}>Select Your Regions</option>
+                                <option value='' disabled >Select Your Regions</option>
 
                                 {
                                     Regions.map((r, i) => <option value={r} key={i}>{r}</option>)
@@ -196,9 +196,9 @@ const SendPercel = () => {
 
                             {/* Receiver District */}
                             <p className='mb-1 text-[#000000]'>Receiver District</p>
-                            <select {...register("ReceiverDistrict")} defaultValue="select Your District" className="select w-full mb-3">
+                            <select {...register("ReceiverDistrict")} defaultValue="" className="select w-full mb-3">
 
-                                <option disabled={true}>Select Your District</option>
+                                <option value='' disabled >Select Your District</option>
 
                                 {
                                     districtByRegions(ReceiverRegion).map((r, i) => <option value={r} key={i}>{r}</option>)

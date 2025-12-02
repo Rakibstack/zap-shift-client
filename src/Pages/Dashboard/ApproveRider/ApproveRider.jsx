@@ -20,10 +20,11 @@ const ApproveRider = () => {
             return res.data
         }
     })
-    const updateRiderStatus = (rider, status) => {
+    const HandleApproved = (rider) => {
 
         const updateInfo = {
-            status: status,
+            status: 'Approved',
+            workStatus: 'available',
             email: rider.email
         }
         axiossecure.patch(`/riders/${rider._id}`, updateInfo)
@@ -32,18 +33,37 @@ const ApproveRider = () => {
                     refetch()
                     Swal.fire({
                         title: "Confirm",
-                        text: `${status === 'Approved' ? "Rider Has Been Approved" : "Rider Status is Rejected"}`,
+                        text: ` "Rider Has Been Approved"`,
                         icon: "success"
                     });
                 }
             })
     }
-    const HandleApproved = (rider) => {
-        updateRiderStatus(rider, 'Approved')
-    }
     const HandleReject = (rider) => {
-        updateRiderStatus(rider, 'Rejected')
+
+        const updateInfo = {
+            status: 'Rejected',
+            workStatus: '',
+            email: rider.email
+        }
+        axiossecure.patch(`/riders/${rider._id}`, updateInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch()
+                    Swal.fire({
+                        title: "Confirm",
+                        text: `Rider Status is Rejected`,
+                        icon: "success"
+                    });
+                }
+            })
     }
+    // const HandleApproved = (rider) => {
+    //     updateRiderStatus(rider, 'Approved')
+    // }
+    // const HandleReject = (rider) => {
+    //     updateRiderStatus(rider, 'Rejected')
+    // }
     const HandleDelete = (id) => {
 
         Swal.fire({
@@ -97,6 +117,7 @@ const ApproveRider = () => {
                             <th className="p-4">Email</th>
                             <th className="p-4">Phone</th>
                             <th className="p-4">Status</th>
+                            <th className="p-4">Work Status</th>
                             <th className="p-4 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -117,6 +138,8 @@ const ApproveRider = () => {
                                         {rider.status}
                                     </span>
                                 </td>
+                                <td className="p-4">{rider.workStatus}</td>
+
 
 
                                 <td className="p-4 flex justify-center space-x-2">

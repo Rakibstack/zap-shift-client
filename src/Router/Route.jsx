@@ -21,6 +21,7 @@ import BeARider from "../Pages/BeARider/BeARider";
 import ApproveRider from "../Pages/Dashboard/ApproveRider/ApproveRider";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
+import AssignRiders from "../Pages/Dashboard/AssignRider/AssignRiders";
 
 
 const router = createBrowserRouter([
@@ -86,19 +87,27 @@ const router = createBrowserRouter([
     children : [
       {
         path: 'myParcels',
-        Component: MyParcel
+        element:
+          <MyParcel></MyParcel>
+       
       },
       {
         path: 'payment/:paymentId',
-        Component: Payment,
+        element:
+          <Payment></Payment>
+       
       },
       {
         path: 'payment-success',
-        Component: PaymentSuccessful,
+        element: 
+          <PaymentSuccessful></PaymentSuccessful>
+        
       },
       {
         path: 'payment-cancelled',
-        Component: PaymentCancelled,
+        element: 
+          <PaymentCancelled></PaymentCancelled>
+       
       },
       {
         path:'paymentHistory',
@@ -106,7 +115,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'parcelDetails/:id',
-        Component: ParcelsDetails,
+       element: 
+        <ParcelsDetails></ParcelsDetails>
+      
       },
       {
         path: 'approverider',
@@ -115,9 +126,15 @@ const router = createBrowserRouter([
         </AdminRoute>
       },
       {
-        path: 'Users-Management',
+        path: 'Users-Management',     
         element: <AdminRoute>
           <UserManagement></UserManagement>
+        </AdminRoute>
+      },
+      {
+        path: 'Assign-Riders',     
+        element: <AdminRoute>
+          <AssignRiders></AssignRiders>
         </AdminRoute>
       }
     ]

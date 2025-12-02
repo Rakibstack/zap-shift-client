@@ -82,9 +82,10 @@ const BeARider = () => {
                             <input type="number" {...register('contact',{required:true})} placeholder="contact" className="border p-3 rounded-xl w-full" />
 
                                {/* Rider Regions */}
-                            <select {...register("riderRegion",{required:true})} defaultValue="select Your Regions" className="border p-3 rounded-xl w-full">
+                            <select {...register("riderRegion",{required:true})} 
+                            defaultValue='' className="border p-3 rounded-xl w-full">
 
-                                <option  disabled={true}>Select Your Regions</option>
+                                <option value='' disabled >Select Your Regions</option>
 
                                 {
                                     Regions.map((r, i) => <option value={r} key={i}>{r}</option>)
@@ -94,8 +95,8 @@ const BeARider = () => {
                             <input type="text" {...register('biketype',{required:true})} placeholder="Bike/Vehicle Type" className="border p-3 rounded-xl w-full" />
 
                                 {/* Rider District */}
-                              <select {...register('riderDistrict',{required:true})} defaultValue="select Your District" className="border p-3 rounded-xl w-full mb-3">
-                                <option disabled={true}>select Your District</option>
+                              <select {...register('riderDistrict',{required:true})} defaultValue="" className="border p-3 rounded-xl w-full mb-3">
+                                <option value='' disabled>select Your District</option>
                                 {
                                     districtByRegions(SenderRegion).map((r, i) =>
 

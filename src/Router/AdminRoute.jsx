@@ -7,9 +7,9 @@ import Loading from '../Components/Loading';
 const AdminRoute = ({children}) => {
 
     const {loader} = useAuth()
-    const {role} = useRole()
+    const {role,roleLoading} = useRole()
 
-   if(loader){
+   if(loader || roleLoading){
       return <Loading></Loading>
     }
 

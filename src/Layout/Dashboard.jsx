@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
-import Logo from '../Components/Logo';
 import { AiOutlineProduct } from 'react-icons/ai';
 import { GrTransaction } from "react-icons/gr";
 import { FaMotorcycle } from 'react-icons/fa';
-import { LogOut, UserCog } from 'lucide-react';
+import { Flame, LogOut, UserCog } from 'lucide-react';
 import useRole from '../Hooks/useRole';
 import useAuth from '../Hooks/useAuth';
+import Loading from '../Components/Loading';
 
 const Dashboard = () => {
 
-  const role = useRole()
+  const {role,roleLoading} = useRole()
   const {logoutuser } = useAuth()
+
+  if(roleLoading){
+    return <Loading></Loading>
+  }
+
+  // console.log(role);
 
     return (
       
@@ -58,7 +64,7 @@ const Dashboard = () => {
              </Link>
         </li>
           {
-            role === 'Admin' && <>
+            role === 'Admin' && (<>
               <li>
              <Link to='/dashboard/approverider' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
              <span><FaMotorcycle size={20} /></span>
@@ -71,7 +77,13 @@ const Dashboard = () => {
              <span className="is-drawer-close:hidden" >Users Management</span>
              </Link>
         </li>
-            </>
+        <li>
+             <Link to='/dashboard/Assign-Riders' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders">
+             <span><Flame size={20} /></span>
+             <span className="is-drawer-close:hidden" >Assign Riders</span>
+             </Link>
+        </li>
+            </>)
           }
 
         {/* List item */}
@@ -84,10 +96,10 @@ const Dashboard = () => {
         </li>
         {/* logout field */}
          <li>
-             <Link onClick={() =>logoutuser()} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Log Out">
+             <span onClick={() =>logoutuser()} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Log Out">
              <span><LogOut size={20} /></span>
              <span className="is-drawer-close:hidden" >Log Out</span>
-             </Link>
+             </span>
         </li>
       </ul>
     </div>

@@ -10,6 +10,8 @@ const Login = () => {
     const [serverError,setServerError] = useState()
     const location = useLocation()
     const navigate = useNavigate()
+    // console.log(location);
+    
 
     const HandleLogin = (data) => {
         loginuser(data.email, data.password)

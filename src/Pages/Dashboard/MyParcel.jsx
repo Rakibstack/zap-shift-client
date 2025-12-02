@@ -59,9 +59,9 @@ const MyParcel = () => {
                             <th className="font-semibold">Parcel No</th>
                             <th className="font-semibold">Parcel Name</th>
                             <th className="font-semibold">Customer</th>
-                            <th className="font-semibold">Phone</th>
                             <th className="font-semibold">Payment</th>
                             <th className="font-semibold">Delivery Status</th>
+                            <th className="font-semibold">TrackingId</th>
                             <th className="font-semibold">Amount</th>
                             <th className="font-semibold">Date</th>
                             <th className="font-semibold text-center">Action</th>
@@ -75,7 +75,6 @@ const MyParcel = () => {
                                 <td className="font-semibold text-gray-800">{i + 1}</td>
                                 <td>{p.ParcelName}</td>
                                 <td>{p.SenderName}</td>
-                                <td>{p.SenderPhonNumber}</td>
                                 <td>
                                     {p.paymentStatus === 'paid' ?
                                     <span className='text-green-400 font-medium'>Paid</span>
@@ -86,7 +85,12 @@ const MyParcel = () => {
                                 </td>
                                 <td>
                                     <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-600 font-semibold">
-                                        {p.status}
+                                        {p.deliveryStatus}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className="px-3 py-1 text-xs rounded-xl bg-blue-100 text-blue-600 font-semibold">
+                                        {p.trackingId}
                                     </span>
                                 </td>
                                 <td className="font-semibold">{p.cost}</td>

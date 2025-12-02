@@ -13,7 +13,9 @@ const PaymentHistory = () => {
         queryKey: ['mypayment', user?.email],
         queryFn: async () => {
 
-            const res = await axiosSecure.get(`/payment?email=${user.email}`)
+            const res = await axiosSecure.get(`/payment?email=${user?.email}`)
+            console.log(res);
+            
             return res.data
         }
     })
@@ -38,7 +40,7 @@ const PaymentHistory = () => {
                         <tr>
                             <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Parcel Info</th>
                             <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Recipient Info</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Tracking Number</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">TransactionId ID</th>
                             <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Payment Info</th>
                             <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">Action</th>
                         </tr>
@@ -56,7 +58,7 @@ const PaymentHistory = () => {
                                 </td>
 
 
-                                <td className="px-4 py-5 text-sm text-gray-700">{p.trackingId}</td>
+                                <td className="px-4 py-5 text-sm text-gray-700">{p.transactionId}</td>
                                 <td className="px-4 py-5 text-sm text-gray-700">{p.amount}(Paid)</td>
 
                              <Link to={`/dashboard/parcelDetails/${p.parcelId}`}>
