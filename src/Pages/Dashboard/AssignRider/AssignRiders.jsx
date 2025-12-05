@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { UserCog } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const AssignRiders = () => {
 
@@ -9,15 +9,15 @@ const AssignRiders = () => {
     const [open, setOpen] = useState(false);
     const [selectedParcel, setSelectedParcel] = useState(null)
 
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [],refetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/parcels?deliveryStatus=pending-pickup')
+            const res = await axiosSecure.get('/parcels?deliveryStatus=pending_pickup')
             return res.data
         }
     })
-    console.log(selectedParcel);
-
+    console.log(parcels);
+ 
     const { data: riders = [] } = useQuery({
         queryKey: ['rider', selectedParcel?.SenderDistrict, 'available'],
         enabled: !!selectedParcel,
@@ -27,11 +27,34 @@ const AssignRiders = () => {
             return res.data
         }
     })
-
     const HandleModal = (p) => {
-
         setSelectedParcel(p)
         setOpen(true)
+    }
+    const HandleAssign = (rider) => {
+
+        const raiderAssignInfo = {
+
+            riderId: rider._id,
+            riderName: rider.name,
+            riderEmail: rider.email,
+            parcelId: selectedParcel._id,
+            trackingId:selectedParcel.trackingId
+        }
+        axiosSecure.patch(`/parcels/${selectedParcel._id}`, raiderAssignInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch()
+                    setOpen(false)
+                    Swal.fire({
+                        title: "Confirm",
+                        text: ` "Rider Has Been Assigned"`,
+                        icon: "success"
+                    });
+                }
+
+            })
+
     }
 
     return (
@@ -71,8 +94,8 @@ const AssignRiders = () => {
                                             <button onClick={() => {
                                                 HandleModal(p)
 
-                                            }} class="bg-gray-900 text-white px-4 py-2 rounded-xl">
-                                                <UserCog size={18} className="mr-2" /> Assign
+                                            }} class="bg-primary text-black px-4 py-2 rounded-xl">
+                                                Find Riders
                                             </button>
                                         </td>
                                     </tr>
@@ -103,14 +126,14 @@ const AssignRiders = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {riders.map((raider, i) =>
-                                        <tr className="bg-base-200">
+                                    {riders.map((rider, i) =>
+                                        <tr key={rider._id} className="bg-base-200">
                                             <th>{i + 1}</th>
-                                            <td>{raider.name}</td>
-                                            <td>{raider.email}</td>
+                                            <td>{rider.name}</td>
+                                            <td>{rider.email}</td>
                                             <td>
-                                                <button className="px-4 py-2 rounded-lg bg-black text-white hover:bg-gray-900">
-                                                    Confirm
+                                                <button onClick={() => HandleAssign(rider)} className="px-4 py-2 rounded-lg bg-primary text-black">
+                                                    Assign
                                                 </button></td>
                                         </tr>
                                     )}

@@ -20,11 +20,10 @@ const Navber = () => {
   }
 
   const links = <>
-    <NavLink>Services</NavLink>
-    <NavLink to='/coverage'>Coverage</NavLink>
-    <NavLink to='/aboutus'>About Us</NavLink>
-    <NavLink> Pricing</NavLink>
-    <NavLink> Track Order</NavLink>
+    <NavLink to='/'>Services</NavLink>
+    <NavLink to='/coverage'>Coverage Area</NavLink>
+    {/* <NavLink> Pricing</NavLink>
+    <NavLink> Track Order</NavLink> */}
     <NavLink to='/send-parcel'> Send Parcel</NavLink>
     {
       user && <>
@@ -32,6 +31,7 @@ const Navber = () => {
         
       </>
     }
+    <NavLink to='/aboutus'>About Us</NavLink>
   </>
   return (
     <div className=' container w-11/12 mx-auto py-6 '>
@@ -43,7 +43,7 @@ const Navber = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+              className="menu menu-sm font-bold dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <nav>
                 {links}
               </nav>

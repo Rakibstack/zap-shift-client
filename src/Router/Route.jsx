@@ -22,6 +22,10 @@ import ApproveRider from "../Pages/Dashboard/ApproveRider/ApproveRider";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../Pages/Dashboard/AssignRider/AssignRiders";
+import MyDelivery from "../Pages/Dashboard/MyDelivery/MyDelivery";
+import RaiderRoute from "./RaiderRoute";
+import CompleteDelivery from "../Pages/Dashboard/MyDelivery/CompleteDelivery";
+import ParcelTrack from "../Pages/Home/ParcelTrack";
 
 
 const router = createBrowserRouter([
@@ -50,6 +54,10 @@ const router = createBrowserRouter([
         {
           path: '/aboutus',
           Component: AboutUs
+        },
+        {
+          path: '/parcelTrack/:trackingId',
+          Component: ParcelTrack,
         },
         {
           path: '/beARider',
@@ -119,6 +127,17 @@ const router = createBrowserRouter([
         <ParcelsDetails></ParcelsDetails>
       
       },
+      // Rider Route.
+      {
+        path: 'mydelivery',
+        element: <RaiderRoute><MyDelivery></MyDelivery></RaiderRoute>
+      },
+      {
+        path: 'completedelivery',
+        element: <RaiderRoute><CompleteDelivery></CompleteDelivery></RaiderRoute>
+      },
+
+      // Admin Route.
       {
         path: 'approverider',
         element: <AdminRoute>

@@ -89,9 +89,9 @@ const MyParcel = () => {
                                     </span>
                                 </td>
                                 <td>
-                                    <span className="px-3 py-1 text-xs rounded-xl bg-blue-100 text-blue-600 font-semibold">
+                                    <Link to={`/parcelTrack/${p.trackingId}`} className="px-3 py-1 text-xs rounded-xl bg-blue-100 text-blue-600 font-semibold">
                                         {p.trackingId}
-                                    </span>
+                                    </Link>
                                 </td>
                                 <td className="font-semibold">{p.cost}</td>
                                 <td>{p.createdAt}</td>

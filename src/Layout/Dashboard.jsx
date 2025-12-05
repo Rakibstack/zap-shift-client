@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router';
 import { AiOutlineProduct } from 'react-icons/ai';
 import { GrTransaction } from "react-icons/gr";
 import { FaMotorcycle } from 'react-icons/fa';
-import { Flame, LogOut, UserCog } from 'lucide-react';
+import { Flame, ListTodo, LogOut, SquareCheckBig, UserCog } from 'lucide-react';
 import useRole from '../Hooks/useRole';
 import useAuth from '../Hooks/useAuth';
 import Loading from '../Components/Loading';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const Dashboard = () => {
 
-  const {role,roleLoading} = useRole()
-  const {logoutuser } = useAuth()
+  const {role} = useRole()
+  const {logoutuser,user } = useAuth()
+  const axiosSecure = useAxiosSecure()
 
-  if(roleLoading){
+  const {data : recUser = []} = useQuery({
+    queryKey: ['user',user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?email=${user?.email}`)
+      return res.data
+    }
+    
+  }) 
+  const userData = recUser?.[0]
+
+  if(!userData){
     return <Loading></Loading>
   }
-
-  // console.log(role);
+  
+  const {displayName,photoURL,role:userRole} = userData
+  
 
     return (
       
@@ -32,7 +46,16 @@ const Dashboard = () => {
         {/* Sidebar toggle icon */}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
       </label>
-     <div><h2 className='text-secondary font-bold text-2xl ml-2'>Zap Shift Dashboard</h2></div>
+     <div className='flex pr-10 justify-between items-center w-full'>
+      <h2 className='text-secondary font-bold text-2xl ml-2'>Zap Shift Dashboard</h2>
+      <div className='flex justify-end items-center gap-3'>
+            <img className='w-12 h-12 rounded-full' src={photoURL}  />
+            <div>
+              <h2 className='font-extrabold text-secondary'>{displayName}</h2>
+              <p>{userRole}</p>
+            </div>
+      </div>
+     </div>
     </nav>
     {/* Page content here */}
     <Outlet></Outlet>
@@ -63,6 +86,24 @@ const Dashboard = () => {
              <span className="is-drawer-close:hidden" >Payment History</span>
              </Link>
         </li>
+        {
+          role === 'Rider' && <>
+             <li>
+             <Link to='/dashboard/mydelivery' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Delivery Task">
+             <span><ListTodo size={20} /></span>
+             <span className="is-drawer-close:hidden" >My Delivery Task</span>
+             </Link>
+        </li>
+             <li>
+             <Link to='/dashboard/completedelivery' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Complete Delivery Task">
+             <span><SquareCheckBig size={20} /></span>
+             <span className="is-drawer-close:hidden" >Complete Delivery Task</span>
+             </Link>
+        </li>
+          </>
+        }
+
+
           {
             role === 'Admin' && (<>
               <li>
